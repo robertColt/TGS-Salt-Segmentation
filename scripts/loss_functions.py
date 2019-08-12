@@ -3,6 +3,15 @@
 
 # In[ ]:
 
+import numpy as np
+
+def iou_np(mask, predict):
+    intersection = np.logical_and(mask, predict).astype(int)
+    union = np.logical_or(mask, predict).astype(int)
+    intersec_sum = np.sum(intersection)
+    union_sum = np.sum(union)
+    return 0 if union_sum == 0 else intersec_sum/union_sum
+
 
 def jaccard_distance_loss(y_true, y_pred, smooth=100):
     """
