@@ -1,7 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[2]:
+
+
+import numpy as np     # linear algebra library
+import pandas as pd    
+import tensorflow as tf
+from random import randint
+from keras import backend as K
+from tensorflow.keras.metrics import MeanIoU as iou
+
+
+# In[3]:
 
 
 def jaccard_distance_loss(y_true, y_pred, smooth=100):
@@ -24,7 +35,7 @@ def jaccard_distance_loss(y_true, y_pred, smooth=100):
     return (1 - jac) * smooth
 
 
-# In[ ]:
+# In[4]:
 
 
 def iou(y_true, y_pred):
@@ -39,7 +50,7 @@ def iou(y_true, y_pred):
     return K.mean(K.stack(prec), axis=0)
 
 
-# In[ ]:
+# In[5]:
 
 
 """
