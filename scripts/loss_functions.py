@@ -9,7 +9,6 @@ import pandas as pd
 import tensorflow as tf
 from random import randint
 from keras import backend as K
-from tensorflow.keras.metrics import MeanIoU as iou
 
 
 # In[3]:
