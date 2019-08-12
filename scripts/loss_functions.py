@@ -13,6 +13,19 @@ from keras import backend as K
 
 # In[3]:
 
+def iou(y_true, y_pred):
+    prec = []
+    for t in np.arange(0.5, 1.0, 0.05):
+        y_pred = tf.to_int32(y_pred > t)
+        score, up_opt = tf.metrics.mean_iou(y_true, y_pred, 2)
+        K.get_session().run(tf.local_variables_initializer())
+        with tf.control_dependencies([up_opt]):
+            score = tf.identity(score)
+        prec.append(score)
+    return K.mean(K.stack(prec), axis=0)
+
+
+# In[4]:
 
 def jaccard_distance_loss(y_true, y_pred, smooth=100):
     """
@@ -34,19 +47,9 @@ def jaccard_distance_loss(y_true, y_pred, smooth=100):
     return (1 - jac) * smooth
 
 
-# In[4]:
 
 
-def iou(y_true, y_pred):
-    prec = []
-    for t in np.arange(0.5, 1.0, 0.05):
-        y_pred = tf.to_int32(y_pred > t)
-        score, up_opt = tf.metrics.mean_iou(y_true, y_pred, 2)
-        K.get_session().run(tf.local_variables_initializer())
-        with tf.control_dependencies([up_opt]):
-            score = tf.identity(score)
-        prec.append(score)
-    return K.mean(K.stack(prec), axis=0)
+
 
 
 # In[5]:
