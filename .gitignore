@@ -2,3 +2,4 @@ scripts/.ipynb_checkpoints/*
 data/*
 submissions/*
 scripts/_pycache_
+models/*
